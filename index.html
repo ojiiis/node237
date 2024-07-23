@@ -28,9 +28,11 @@ document.getElementById("search").onkeyup = function(){
     var obj = {
             value:this.value
         }
+        var data = new FormData()
+        data.append("value",this.value)
         fetch("http://127.0.0.1:3030/search",{
             method:"POST",
-            body:JSON.stringify(obj)
+            body:data
         })
         .then(r=>r.json())
         .then((b)=>{
