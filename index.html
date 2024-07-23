@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" placeholder="search..." id="search">
+    <div id="result">
+   
+    </div>
+    <script>
+ /*     
+// declearing a function with a callback
+       function ggg(g,cb){
+    console.log(g+" from the main function body")
+        cb("from callback "+g)
+       }
+
+// calling a function with a callback
+       ggg("Hello",function(b){
+        console.log("i added this "+b)
+       })
+*/
+
+document.getElementById("search").onkeyup = function(){
+    var obj = {
+            value:this.value
+        }
+        fetch("http://127.0.0.1:3030/search",{
+            method:"POST",
+            body:JSON.stringify(obj)
+        })
+        .then(r=>r.json())
+        .then((b)=>{
+            if(b.length){
+                var data = ""
+                for(i = 0; i < b.length; i++){
+                    data += "Title: "+b[i].title+"<br>";
+                    data += "Body: "+b[i].body+"<br>";
+                    data += "===================================<br><br>"
+                }
+                document.getElementById("result").innerHTML = data
+            }
+
+        })
+}
+
+    
+      //var objStr = JSON.stringify(obj) convert JSON to string
+     //JSON.parse(objStr)  convert JSON string back to object
+      
+    </script>
+</body>
+</html>
